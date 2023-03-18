@@ -1,0 +1,9 @@
+{
+  "token": "your bot token",
+  "testapideveloper": "your developer token in https://developer.riotgames.com/",
+  "lolapiru": "https://ru.api.riotgames.com/lol",
+  "lolapieurope": "https://europe.api.riotgames.com",
+  "lolapiaccount": "/summoner/v4/summoners/by-name/",
+  "lolapiprofile": "/league/v4/entries/by-summoner/",
+  "lolapimatch": "/lol/match/v5/matches/"
+}
