@@ -11,14 +11,16 @@ namespace src
             var userRoles = (SocketGuildUser)arg.Author;
             if (!user.IsBot)
             {
-                /*if (arg.Content == "")
+                if (arg.Channel.Name == "botchat")
                 {
-                    Console.WriteLine();
+                    foreach (var use in userRoles.Roles)
+                    {
+                        if (use.ToString() != "Бот")
+                        {
+                            await arg.DeleteAsync();
+                        }
+                    }
                 }
-                using (StreamWriter writer = new StreamWriter("../../../log.txt", true))
-                {
-                    writer.WriteLine($"Чат: {arg.Channel.Name};\n\nИмя: {arg.Author};\nСообщение: {arg.Content};\nВремя: {arg.CreatedAt.AddHours(3)}\n");
-                }*/
                 foreach (var use in userRoles.Roles)
                 {
                     if (use.ToString() == "poop")
@@ -28,7 +30,14 @@ namespace src
 
                     }
                 }
-
+                /*if (arg.Content == "")
+                {
+                    Console.WriteLine();
+                }
+                using (StreamWriter writer = new StreamWriter("../../../log.txt", true))
+                {
+                    writer.WriteLine($"Чат: {arg.Channel.Name};\n\nИмя: {arg.Author};\nСообщение: {arg.Content};\nВремя: {arg.CreatedAt.AddHours(3)}\n");
+                }*/
             }
         }
     }
