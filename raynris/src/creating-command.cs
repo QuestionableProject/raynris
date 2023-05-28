@@ -31,6 +31,7 @@ namespace src
                 Console.WriteLine(json);
             }
         }
+
         internal async Task SlashCommandHandler(SocketSlashCommand command)
         {
             switch (command.Data.Name)

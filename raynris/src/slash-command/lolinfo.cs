@@ -50,11 +50,11 @@ namespace src.command
         {
             public Info? info { get; set; }
         }
-
         class Rang
         {
             public Color ColorRang = 0x404040;
         }
+
         internal async Task InfoFunction(SocketSlashCommand command)
         {
             Rang summonerRang = new Rang();
@@ -63,18 +63,19 @@ namespace src.command
             var url = JsonConvert.DeserializeObject<JsonInfo>(File.ReadAllText("../../../../application.json"));
             try
             {
+                
                 string responseGA = await clientHttp.GetStringAsync(@$"{url?.lolapiru}{url?.lolapiaccount}{urlName}?api_key={url?.testapideveloper}");
                 var responseJsonGA = JsonConvert.DeserializeObject<UserAccount>(responseGA);
 
                 string responseGP = await clientHttp.GetStringAsync(@$"{url?.lolapiru}{url?.lolapiprofile}{responseJsonGA?.id}?api_key={url?.testapideveloper}");
                 var responseJsonGP = JsonConvert.DeserializeObject<UserProfile[]>(responseGP);
-
+                
                 string responseMID = await clientHttp.GetStringAsync(@$"{url?.lolapieurope}{url?.lolapimatch}by-puuid/{responseJsonGA?.puuid}/ids?start=0&count=1&api_key={url?.testapideveloper}");
                 var responseJsonMID = JsonConvert.DeserializeObject<string[]>(responseMID);
-
+                
                 string responseM = await clientHttp.GetStringAsync(@$"{url?.lolapieurope}{url?.lolapimatch}{responseJsonMID[0]}?api_key={url?.testapideveloper}");
                 var responseJsonM = JsonConvert.DeserializeObject<UserMatch>(responseM);
-
+                
                 if (responseJsonGP?.Length == 0)
                 {
                     foreach (var f in responseJsonM?.info?.participants)
@@ -83,10 +84,8 @@ namespace src.command
                         var embedBuilder = new EmbedBuilder().WithAuthor(command.Data.Options.First().Value.ToString()).WithDescription(
                             $"Уровень:  **{responseJsonGA?.summonerLevel}**" +
                             $"\nРанг: **Нет ранга**" +
-                            $"\nПоследняя игра:\n```{winn}\nKDA: {f.kills}/{f.deaths}/{f.assists}\n{f.lane}/{f.championName}```" +
-                            $"\nВинрейт всего:" +
-                            $"\nВинрейт одиночная:" +
-                            $"\nKDA всего:").WithColor(summonerRang.ColorRang);
+                            $"\nПоследняя игра:\n```{winn}\nKDA: {f.kills}/{f.deaths}/{f.assists}\n{f.lane}/{f.championName}```" 
+                            ).WithColor(summonerRang.ColorRang);
                         await command.RespondAsync(embed: embedBuilder.Build());
                     }
                     return;
@@ -135,10 +134,8 @@ namespace src.command
                                         $"\nРанг: **{i.tier}  {i.rank}**" +
                                         $"\nLP: **{i.leaguePoints}**" +
                                         $"\nПобед: **{i.wins}** Поражений: **{i.losses}**" +
-                                        $"\nПоследняя игра:\n```{winn}\nKDA: {f.kills}/{f.deaths}/{f.assists}\n{f.lane}/{f.championName}```" +
-                                        $"\nВинрейт всего:" +
-                                        $"\nВинрейт одиночная:" +
-                                        $"\nKDA всего:").WithColor(summonerRang.ColorRang);
+                                        $"\nПоследняя игра:\n```{winn}\nKDA: {f.kills}/{f.deaths}/{f.assists}\n{f.lane}/{f.championName}```" 
+                                        ).WithColor(summonerRang.ColorRang);
                                     await command.RespondAsync(embed: embedBuilder.Build());
                                 }
                             }
@@ -150,10 +147,7 @@ namespace src.command
                                        $"\nРанг: **{i.tier}  {i.rank}**" +
                                        $"\nLP: **{i.leaguePoints}**" +
                                        $"\nПобед: **{i.wins}** Поражений: **{i.losses}**" +
-                                       $"\nПоследняя игра:\n```У призывателя нет последней игры" +
-                                       $"\nВинрейт всего:" +
-                                       $"\nВинрейт одиночная:" +
-                                       $"\nKDA всего:").WithColor(summonerRang.ColorRang);
+                                       $"\nПоследняя игра:\n```У призывателя нет последней игры" ).WithColor(summonerRang.ColorRang);
                             await command.RespondAsync(embed: embedBuilder.Build());
                         }
                     }

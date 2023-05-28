@@ -6,19 +6,24 @@ using src;
 namespace Rayanris
 {
     class Program {
-        class JsonInfo
-        {
+
+        class JsonInfo{
             public string? Token { get; set; }
         }
-
         static void Main(string[] args) => new Program().MainAsync().GetAwaiter().GetResult();
-        DiscordSocketClient? _client;   
+        DiscordSocketClient? _client;
 
         creating_command slashcommand = new creating_command();
         checkingMessage message = new checkingMessage();
         creating_command creatingCommand = new creating_command();
+
         private async Task MainAsync() {
-            _client = new DiscordSocketClient();
+
+            var config = new DiscordSocketConfig
+            {
+                GatewayIntents = GatewayIntents.AllUnprivileged | GatewayIntents.MessageContent,
+            };
+            _client = new DiscordSocketClient(config);
 
             _client.SlashCommandExecuted += slashcommand.SlashCommandHandler;
             _client.Ready += creatingCommand.Client_Ready;
@@ -32,3 +37,4 @@ namespace Rayanris
         }
     }
 }
+
